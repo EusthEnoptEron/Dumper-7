@@ -437,7 +437,9 @@ DSGen::FunctionHolder DumpspaceGenerator::GenearateFunction(const FunctionWrappe
 			continue;
 		}
 
-		RetFunc.functionParams.emplace_back(GetMemberType(Param), Param.GetName());
+		bool bIsReference = Param.HasPropertyFlags(EPropertyFlags::OutParm) && !Param.HasPropertyFlags(EPropertyFlags::ConstParm);
+
+		RetFunc.functionParams.emplace_back(GetMemberType(Param, bIsReference), Param.GetName());
 	}
 
 	return RetFunc;
